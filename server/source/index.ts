@@ -1,15 +1,18 @@
+// EXTERNAL IMPORTS
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
+
+// LOCAL IMPORTS
+import { route, router } from './router'
 
 dotenv.config();
 
 const server: Express = express();
 const port = process.env.PORT;
 
-server.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
-});
+// Setup server router
+server.use(route, router);
 
 server.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
+  console.log(`Server is running at https://localhost:${port}`);
 });
