@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  churros-app-server:
+    container_name: churros-app-server
+    build: ./server
+    ports:
+      - '9090:9090'
+    environment:
+      - PORT=9090
+    volumes:
+      - ./server:/usr/src/server
+    depends_on:
+      - churros-app-database
+  churros-app-database:
+    container_name: churros-app-database
+    build: ./database
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - '16543:80'
+    depends_on:
+      - churros-app-database
