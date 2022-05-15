@@ -1,6 +1,6 @@
 FROM node:lts-alpine3.15
 
-WORKDIR /usr/src/server
+WORKDIR /usr/src/churros-app-server
 
 COPY package*.json .
 
