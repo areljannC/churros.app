@@ -12,6 +12,7 @@ import { route, router } from './router';
 dotenv.config();
 
 const server: Express = express();
+server.use(express.json());
 server.use(route, router);
 
 (async () => {
