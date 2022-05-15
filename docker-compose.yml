@@ -7,8 +7,13 @@ services:
       - '9090:9090'
     environment:
       - PORT=9090
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_HOST=172.26.0.2 # inspect `churros-app-database` to get the latest IP address
+      - DB_PORT=5432
+      - DB_NAME=root
     volumes:
-      - ./server:/usr/src/server
+      - ./server:/usr/src/churros-app-server
     depends_on:
       - churros-app-database
   churros-app-database:
@@ -20,13 +25,19 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=root
-  pgadmin:
-    container_name: pgadmin
+    volumes:
+      - ./database/source/ddl/createTables.sql:/docker-entrypoint-initdb.d/createTables.sql
+      - churros-app-volume:/var/lib/postgresql/data
+  churros-app-database-admin:
+    container_name: churros-app-database-admin
     image: dpage/pgadmin4
+    ports:
+      - '16543:80'
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=admin
-    ports:
-      - '16543:80'
     depends_on:
       - churros-app-database
+volumes:
+  churros-app-volume: # create a volume named `churros-app-volume` before composing
+    external: true
