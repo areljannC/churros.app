@@ -1,18 +1,23 @@
 // EXTERNAL IMPORTS
-import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import express, { Express } from 'express';
+
+// SHARED IMPORTS
+import { dbClient } from './shared/database';
+import { config } from './shared/constants';
 
 // LOCAL IMPORTS
-import { route, router } from './router'
+import { route, router } from './router';
 
 dotenv.config();
 
 const server: Express = express();
-const port = process.env.PORT;
-
-// Setup server router
 server.use(route, router);
 
-server.listen(port, () => {
-  console.log(`Server is running at https://localhost:${port}`);
-});
+(async () => {
+  await dbClient.connect();
+
+  server.listen(config.server.port, () => {
+    console.log(`Server is running at https://localhost:${config.server.port}`);
+  });
+})();
