@@ -1,19 +1,15 @@
 // EXTERNAL IMPORTS
+import 'module-alias/register';
 import dotenv from 'dotenv';
-import express, { Express } from 'express';
 
 // SHARED IMPORTS
-import { dbClient } from './shared/database';
-import { config } from './shared/constants';
+import { config } from '@constants';
+import { dbClient } from '@database';
 
 // LOCAL IMPORTS
-import { route, router } from './router';
+import server from './server';
 
 dotenv.config();
-
-const server: Express = express();
-server.use(express.json());
-server.use(route, router);
 
 (async () => {
   await dbClient.connect();

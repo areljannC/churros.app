@@ -7,6 +7,9 @@ const config = Object.freeze({
     password: process.env.DB_PASSWORD,
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT) || 5432
+  }),
+  jwt: Object.freeze({
+    secretKey: process.env.JWT_SECRET_KEY || 'wow-so-secure'
   })
 });
 

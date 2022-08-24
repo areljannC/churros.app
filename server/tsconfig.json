@@ -1,4 +1,9 @@
 {
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  },
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
@@ -11,6 +16,24 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "source",
+    "paths": {
+      "@interfaces": [
+        "shared/interfaces"
+      ],
+      "@constants": [
+        "shared/constants"
+      ],
+      "@database": [
+        "shared/database"
+      ],
+      "@middleware": [
+        "shared/middleware"
+      ],
+      "@utils": [
+        "shared/utils"
+      ],
+    }
   }
 }

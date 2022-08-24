@@ -1,3 +1,3 @@
-const getTimestamp = () => new Date().getTime();
+const getTimestamp = () => Date.now();
 
 export default getTimestamp;
